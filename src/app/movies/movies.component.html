@@ -1,0 +1,38 @@
+<div class="jumbotron">
+  <p>Search for a movie using the form below</p>
+  <form>
+    <div class="form-group">
+      <div class="input-group">
+        <input type="text" class="form-control" placeholder="Search for movies..." [(ngModel)]="searchStr" name="searchStr" (keyup.enter)="searchMovie()">
+        <span class="input-group-btn">
+          <button class="btn btn-primary" type="button" (click)="searchMovie()">Go!</button>
+        </span>
+      </div>
+      <!-- /input-group -->
+    </div>
+  </form>
+</div>
+<div class="container">
+  <table class="table">
+    <thead>
+      <tr>
+        <th [class.active]="order === 'id'" (click)="setOrder('id')">ID<span [hidden]="reverse">▼</span
+          ><span [hidden]="!reverse">▲</span></th>
+        <th [class.active]="order === 'title'" (click)="setOrder('title')">Seach Movie <span [hidden]="reverse">▼</span
+          ><span [hidden]="!reverse">▲</span></th>
+        <th [class.active]="order === 'vote_average'" (click)="setOrder('vote_average')">Avarage Vote <span [hidden]="reverse">▼</span>
+          <span [hidden]="!reverse">▲</span></th>
+        <th [class.active]="order === 'release_date'" (click)="setOrder('release_date')">Release Date <span [hidden]="reverse">▼</span>
+          <span [hidden]="!reverse">▲</span></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let movie of searchRes| orderBy: order:reverse:'case-insensitive'">
+        <td>{{movie.id}}</td>
+        <td *ngIf="searchRes">{{movie.title }}</td>
+        <td >{{movie.vote_average}}</td>
+        <td *ngIf="movie.release_date">{{movie.release_date}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
